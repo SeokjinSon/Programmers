@@ -1,0 +1,29 @@
+/*
+ HashMap을 사용
+  1. 참가자 각각을 HashMap의 key로 하여 있을 때마다 value를 1씩 증가
+  2. 완주한 사람 각각이 HashMap에 있을 때마다 value를 1씩 감소
+  3. 0이 아니라면 그 key는 참여자 명단에는 있지만 완주자 명단에는 없다는 것
+*/
+
+import java.util.*;
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+        HashMap<String, Integer> hm = new HashMap<String, Integer>();
+        
+        for(String key : participant)
+            hm.put(key, hm.getOrDefault(key, 0)+1);
+        for(String key : completion)
+            hm.put(key, hm.getOrDefault(key, 0)-1);
+        
+        Iterator itr = hm.keySet().iterator();
+        while(itr.hasNext()) {
+            String value = (String)itr.next();
+            if(hm.get(value) != 0)
+                answer = value;
+        }
+        
+        return answer;
+    }
+}
